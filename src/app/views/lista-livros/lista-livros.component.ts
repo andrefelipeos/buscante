@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { GoogleBooksService } from 'src/app/service/google-books.service';
 
 @Component({
@@ -6,21 +7,26 @@ import { GoogleBooksService } from 'src/app/service/google-books.service';
   templateUrl: './lista-livros.component.html',
   styleUrls: ['./lista-livros.component.css']
 })
-export class ListaLivrosComponent {
+export class ListaLivrosComponent implements OnDestroy {
 
   listaLivros: [];
   campoBusca: string = "";
+  subscription: Subscription;
 
   constructor(private service: GoogleBooksService) { }
 
   buscarLivros() {
-    this.service
+    this.subscription = this.service
       .buscar(this.campoBusca)
       .subscribe({
         next: retornoApi => console.log(retornoApi),
         error: erroApi => console.error(erroApi),
         complete: () => console.log("Observable completado."),
       });
+  }
+
+  ngOnDestroy(): void {
+      this.subscription.unsubscribe();
   }
 
 }
