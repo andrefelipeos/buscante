@@ -14,9 +14,13 @@ export class ListaLivrosComponent {
   constructor(private service: GoogleBooksService) { }
 
   buscarLivros() {
-    this.service.buscar(this.campoBusca).subscribe(
-      retornoAPI => console.log(retornoAPI)
-    );
+    this.service
+      .buscar(this.campoBusca)
+      .subscribe({
+        next: retornoApi => console.log(retornoApi),
+        error: erroApi => console.error(erroApi),
+        complete: () => console.log("Observable completado."),
+      });
   }
 
 }
