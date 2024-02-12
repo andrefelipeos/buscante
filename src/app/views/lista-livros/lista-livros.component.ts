@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { map, switchMap } from 'rxjs';
+import { filter, map, switchMap } from 'rxjs';
 import { LivroVolumeInfo } from 'src/app/models/LivroVolumeInfo';
-import { Item } from 'src/app/models/interfaces';
 import { GoogleBooksService } from 'src/app/service/google-books.service';
 
 @Component({
@@ -17,6 +16,7 @@ export class ListaLivrosComponent {
   constructor(private service: GoogleBooksService) { }
 
   livrosEncontrados$ = this.campoBusca.valueChanges.pipe(
+    filter(termoDigitado => termoDigitado.length > 2),
     switchMap(termoDigitado => this.service.buscar(termoDigitado)),
     map(itens => itens.map(item => new LivroVolumeInfo(item)))
   );
