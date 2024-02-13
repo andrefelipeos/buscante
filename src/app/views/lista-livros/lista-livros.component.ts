@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { EMPTY, Observable, catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, throwError } from 'rxjs';
 import { LivroVolumeInfo } from 'src/app/models/LivroVolumeInfo';
+import { LivrosResultado } from 'src/app/models/interfaces';
 import { GoogleBooksService } from 'src/app/service/google-books.service';
 
 const PAUSA = 600;
@@ -15,6 +16,7 @@ export class ListaLivrosComponent {
 
   campoBusca: FormControl = new FormControl;
   mensagemDeErro: string = "";
+  livrosResultado: LivrosResultado;
 
   constructor(private service: GoogleBooksService) { }
 
@@ -32,6 +34,17 @@ export class ListaLivrosComponent {
           new Error(this.mensagemDeErro = "Ocorreu um erro. Por favor, recarregue a página.");
         })
       })
+    );
+
+  totalDeLivros$: Observable<LivrosResultado> = this.campoBusca
+    .valueChanges
+    .pipe(
+      debounceTime(PAUSA),
+      filter(termoDigitado => termoDigitado.length > 2),
+      distinctUntilChanged(),
+      switchMap(termoDigitado => this.service.buscar(termoDigitado)),
+      map(payload => this.livrosResultado = payload),
+      catchError(() => EMPTY)
     );
 
 }
