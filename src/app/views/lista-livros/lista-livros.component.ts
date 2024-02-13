@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { EMPTY, catchError, debounceTime, filter, map, switchMap, throwError } from 'rxjs';
+import { EMPTY, catchError, debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs';
 import { LivroVolumeInfo } from 'src/app/models/LivroVolumeInfo';
 import { GoogleBooksService } from 'src/app/service/google-books.service';
 
@@ -21,6 +21,7 @@ export class ListaLivrosComponent {
   livrosEncontrados$ = this.campoBusca.valueChanges.pipe(
     debounceTime(PAUSA),
     filter(termoDigitado => termoDigitado.length > 2),
+    distinctUntilChanged(),
     switchMap(termoDigitado => this.service.buscar(termoDigitado)),
     map(itens => itens.map(item => new LivroVolumeInfo(item))),
     catchError(() => {
