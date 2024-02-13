@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { EMPTY, catchError, debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs';
+import { EMPTY, Observable, catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, throwError } from 'rxjs';
 import { LivroVolumeInfo } from 'src/app/models/LivroVolumeInfo';
 import { GoogleBooksService } from 'src/app/service/google-books.service';
 
@@ -18,16 +18,20 @@ export class ListaLivrosComponent {
 
   constructor(private service: GoogleBooksService) { }
 
-  livrosEncontrados$ = this.campoBusca.valueChanges.pipe(
-    debounceTime(PAUSA),
-    filter(termoDigitado => termoDigitado.length > 2),
-    distinctUntilChanged(),
-    switchMap(termoDigitado => this.service.buscar(termoDigitado)),
-    map(itens => itens.map(item => new LivroVolumeInfo(item))),
-    catchError(() => {
-      this.mensagemDeErro = "Ocorreu um erro. Por favor, recarregue a página.";
-      return EMPTY;
-    })
-  );
+  livrosEncontrados$: Observable<LivroVolumeInfo[]> = this.campoBusca
+    .valueChanges
+    .pipe(
+      debounceTime(PAUSA),
+      filter(termoDigitado => termoDigitado.length > 2),
+      distinctUntilChanged(),
+      switchMap(termoDigitado => this.service.buscar(termoDigitado)),
+      map(payload => payload.items ?? []),
+      map(itens => itens.map(item => new LivroVolumeInfo(item))),
+      catchError(() => {
+        return throwError(() => {
+          new Error(this.mensagemDeErro = "Ocorreu um erro. Por favor, recarregue a página.");
+        })
+      })
+    );
 
 }
