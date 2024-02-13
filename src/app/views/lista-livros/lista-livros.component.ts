@@ -27,6 +27,7 @@ export class ListaLivrosComponent {
       filter(termoDigitado => termoDigitado.length > 2),
       distinctUntilChanged(),
       switchMap(termoDigitado => this.service.buscar(termoDigitado)),
+      map(payload => this.livrosResultado = payload),
       map(payload => payload.items ?? []),
       map(itens => itens.map(item => new LivroVolumeInfo(item))),
       catchError(() => {
@@ -34,17 +35,6 @@ export class ListaLivrosComponent {
           new Error(this.mensagemDeErro = "Ocorreu um erro. Por favor, recarregue a página.");
         })
       })
-    );
-
-  totalDeLivros$: Observable<LivrosResultado> = this.campoBusca
-    .valueChanges
-    .pipe(
-      debounceTime(PAUSA),
-      filter(termoDigitado => termoDigitado.length > 2),
-      distinctUntilChanged(),
-      switchMap(termoDigitado => this.service.buscar(termoDigitado)),
-      map(payload => this.livrosResultado = payload),
-      catchError(() => EMPTY)
     );
 
 }
