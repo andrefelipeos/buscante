@@ -1,0 +1,11 @@
+# folders
+node_modules
+.angular
+.vscode
+
+# files
+README.md
+LICENSE
+.editorconfig
+.git
+.gitignore
