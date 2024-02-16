@@ -1,14 +1,12 @@
 # Buscante
 
-Another project from Alura's Angular training.  
+Another project built as part of an Angular training on Alura.  
 
 ## What is this project and what does it do?
 
 Buscante is a front-end Angular application. It allows users to search books on the Google Books API. Users cannot add or edit books information with it.  
 
 ## How was it made and what technologies does it use?
-
-Buscante was made as part of a course on Alura. It was built with **Angular** and uses data from the **Google Books API**.  
 
 The following technologies were extensively used in the development of this project:  
 
@@ -20,9 +18,9 @@ The following technologies were extensively used in the development of this proj
 - **Nginx**
 - **Google Books API**
 
-Data is retrieved from the API using *observables*, then transformed using **RxJS** *operators* into proper **TypeScript** *models* to be used on **Angular** *components*.  
+Data is retrieved from **Google Books API** using *observables* and transformed using **RxJS** *operators* into proper **TypeScript** models. These models are, then, used on **Angular** *components*.  
 
-This project has a *Dockerfile* for easy deployment with **Docker**. It defines a *multi-stage build*: first a **Node.js** image is used to build the project for production; and then a small **Nginx** image is used for deployment.  
+This project has a *Dockerfile* for easy deployment with **Docker**. It defines a multi-stage build: first a **Node.js** image is used to build the project for production; then a small **Nginx** image is used for deployment.  
 
 Finally, it is important to note that visual assets, such as some images and logos, and most CSS code was provided by Alura.  
 
@@ -30,13 +28,13 @@ Finally, it is important to note that visual assets, such as some images and log
 
 1. You can build the *Docker image* (a) or just pull it from *Docker Hub* (b).  
 
-a. To build the image yourself, run the following command in the application's root directory.  
+- (a) To build the image yourself, run the following command in the application's root directory.  
 
 ```
-docker build --tag buscante:ng-16 .
+docker build --tag buscante:ng-16 .  
 ```
 
-b. To pull the image from Docker Hub, use the following command.  
+- (b) To pull the image from Docker Hub, use the following command.  
 
 ```
 docker pull andrefelipe/buscante:ng-16
