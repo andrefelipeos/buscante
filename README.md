@@ -22,7 +22,7 @@ Data is retrieved from **Google Books API** using *observables* and transformed 
 
 This project has a *Dockerfile* for easy deployment with **Docker**. It defines a multi-stage build: first a **Node.js** image is used to build the project for production; then a small **Nginx** image is used for deployment.  
 
-Finally, it is important to note that visual assets, such as some images and logos, and most CSS code was provided by Alura.  
+It is important to note that visual assets, such as some images and logos, and most CSS code was provided by Alura.  
 
 ## How to use it with Docker?
 
