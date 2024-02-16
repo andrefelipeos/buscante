@@ -1,27 +1,58 @@
 # Buscante
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.0.3.
+Another project from Alura's Angular training.  
 
-## Development server
+## What is this project and what does it do?
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Buscante is a front-end Angular application. It allows users to search books on the Google Books API. Users cannot add or edit books information with it.  
 
-## Code scaffolding
+## How was it made and what technologies does it use?
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Buscante was made as part of a course on Alura. It was built with **Angular** and uses data from the **Google Books API**.  
 
-## Build
+The following technologies were extensively used in the development of this project:  
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **Angular**
+- **TypeScript**
+- **RxJS**
+- **Node.js**
+- **Docker**
+- **Nginx**
+- **Google Books API**
 
-## Running unit tests
+Data is retrieved from the API using *observables*, then transformed using **RxJS** *operators* into proper **TypeScript** *models* to be used on **Angular** *components*.  
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+This project has a *Dockerfile* for easy deployment with **Docker**. It defines a *multi-stage build*: first a **Node.js** image is used to build the project for production; and then a small **Nginx** image is used for deployment.  
 
-## Running end-to-end tests
+Finally, it is important to note that visual assets, such as some images and logos, and most CSS code was provided by Alura.  
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## How to use it with Docker?
 
-## Further help
+1. You can build the *Docker image* (a) or just pull it from *Docker Hub* (b).  
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+a. To build the image yourself, run the following command in the application's root directory.  
+
+```
+docker build --tag buscante:ng-16 .
+```
+
+b. To pull the image from Docker Hub, use the following command.  
+
+```
+docker pull andrefelipe/buscante:ng-16
+```
+
+In either case, you should now have the *buscante:ng-16* (or *andrefelipe/buscante:ng-16*) image locally.  
+
+2. To run the application, just execute the following command.  
+
+```
+docker run --detach --publish 8080:80 buscante:ng-16
+```
+
+The `--detach` or `-d` option is used to run the container in background, only printing its ID as output.  
+
+The `--publish` or `-p` option is used to publish containers ports to the host. It links a host's port to a container's port and it is used as `--publish <host-port>:<container-port>`. This way, the container's internal *Nginx* serves the application on the container's port `80`, but the `--publish` option used above publishes the application (i.e. makes it available) on the host's port `8080`.  
+
+3. You can now see the application running on `http://localhost:8080` on you browser.  
+
