@@ -6,6 +6,8 @@ Another project built as part of an Angular training on Alura.
 
 Buscante is a front-end Angular application. It allows users to search books on the Google Books API. Users cannot add or edit books information with it.  
 
+![Screenshot of Buscante: it has a search bar and two cards below it.](/.github_assets/img/buscante-screenshot.png "Screenshot of Buscante.")
+
 ## How was it made and what technologies does it use?
 
 The following technologies were extensively used in the development of this project:  
