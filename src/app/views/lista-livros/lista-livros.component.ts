@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { EMPTY, Observable, catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, throwError } from 'rxjs';
+import {
+  Observable, catchError, debounceTime, distinctUntilChanged, filter, map,
+  switchMap, throwError
+} from 'rxjs';
+
+import { loadingCardsAnimationTrigger } from 'src/app/animations';
 import { LivroVolumeInfo } from 'src/app/models/LivroVolumeInfo';
 import { LivrosResultado } from 'src/app/models/interfaces';
 import { GoogleBooksService } from 'src/app/service/google-books.service';
@@ -10,7 +15,8 @@ const PAUSA = 600;
 @Component({
   selector: 'app-lista-livros',
   templateUrl: './lista-livros.component.html',
-  styleUrls: ['./lista-livros.component.css']
+  styleUrls: ['./lista-livros.component.css'],
+  animations: [loadingCardsAnimationTrigger]
 })
 export class ListaLivrosComponent {
 
