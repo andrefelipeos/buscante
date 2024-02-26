@@ -1,6 +1,9 @@
 import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,8 +12,6 @@ import { RodapeComponent } from './componentes/rodape/rodape.component';
 import { LivroComponent } from './componentes/livro/livro.component';
 import { ListaLivrosComponent } from './views/lista-livros/lista-livros.component';
 import { ModalLivroComponent } from './views/modal-livro/modal-livro.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { AutorPipe } from './pipes/autor.pipe';
 
 @NgModule({
@@ -29,7 +30,8 @@ import { AutorPipe } from './pipes/autor.pipe';
     RouterModule,
     FormsModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
